@@ -1,0 +1,9 @@
+<template>
+    <lightning-card title="Hello, Salesforce!" icon-name="standard:account">
+        <lightning-input label="Your name" value={yourName} onchange={handleChange}></lightning-input>
+        <lightning-button label="Greet Me!" onclick={handleClick} class="slds-m-top_medium"></lightning-button>
+        <template if:true={greetMsg}>
+            <p class="slds-m-top_medium">{greetMsg}</p>
+        </template>
+    </lightning-card>
+</template>

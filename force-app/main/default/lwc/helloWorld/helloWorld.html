@@ -1,0 +1,10 @@
+<template>
+    <div class="slds-text-heading_large">Really Big Text</div>
+    <lightning-card title="HellWorld" icon-name="custom:custom14">
+        <div class="slds-m-around_medium">
+            <p>Hello, {greeting}!</p>
+            <!-- We're adding a button here with an onclick event -->
+            <lightning-input label="Name" value={greeting} onchange={changeHandler}></lightning-input>
+        </div>
+    </lightning-card>
+</template>
