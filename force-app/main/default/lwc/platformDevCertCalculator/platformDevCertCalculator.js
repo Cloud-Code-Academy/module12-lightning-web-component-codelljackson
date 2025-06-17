@@ -3,6 +3,8 @@ const devFundWeight = 0.23;
 const processAutoWeight = 0.30;
 const userIntWeight = 0.25;
 const testDebugWeight = 0.22;
+const passingScore = 65;
+
 
 export default class PlatformDevCertCalculator extends LightningElement {
 
@@ -12,6 +14,9 @@ export default class PlatformDevCertCalculator extends LightningElement {
     testingScore = 50;
 
     certificationScore = 90;
+
+    showResources = false;
+    showGoodJob = false; 
 
     calculateScore(){
         let devFundWeightScore = this.devFundamentalScore * devFundWeight;
@@ -24,6 +29,8 @@ export default class PlatformDevCertCalculator extends LightningElement {
             processAutoWeightScore  +
             userIntWeighScore  + 
             testDebugWeightScore;
+
+            this.showResourcesIfFailed();
         }
         handleChange(event){
             console.log(event.target.name, event.target.value);
@@ -42,4 +49,14 @@ export default class PlatformDevCertCalculator extends LightningElement {
             }
             
         }
-}
+        showResourcesIfFailed(){
+            if (this.certificationScore < passingScore){
+                this.showResources = true;
+                this.showGoodJob = false;
+            } else {
+                this.showResources = false;
+                this.showGoodJob = true;
+            }
+            
+            }
+        }
