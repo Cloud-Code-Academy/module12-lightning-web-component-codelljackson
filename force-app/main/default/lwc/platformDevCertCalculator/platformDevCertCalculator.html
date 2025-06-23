@@ -43,7 +43,21 @@
       <div slot="footer">
          <h1 class="slds-text-heading_large slds-text-title_caps reslultText">Certification Result</h1> 
          <p class="slds-text-heading_medium">Certification Score: <span class="slds-text-color_destructive">{certificationScore}%</span></p>
-         
+      <div>
+         <h1 class="slds-text-heading_large">Previous Attempt</h1>
+            <lightning-tabset>
+               <div for:each={attemptHistory} for:item="attempt" key={attempt.id}>
+               <lightning-tab label={attempt.Id}>
+                  <c-score-information 
+                  score={attempt.Score}
+                  attempt-id={attempt.Id}
+                  number-of-questions={numberOfQuestions}
+                  ondeleteattempt={deleteAttemptHandler}
+                  ></c-score-information>
+            </lightning-tab>
+         </div>
+      </lightning-tabset>
+      </div>
          <template lwc:if={showResources}> 
 
          <ul class="slds-text-align_left slds-text-heading_small slds-var-p-top_medium slds-list_dotted slds-box">
@@ -53,8 +67,10 @@
             <li>
                <a href="https://trailhead.salesforce.com/help?article=Salesforce-Certified-Platform-Developer-I-Exam-Guide">PDI Exam Guide</a>
             </li>
+            
             <a href="https://focusonforce.com/courses/slaesforce-certified-platform-developer-1-exams/">Focus on Force</a>
             <li>
+            
                <a href="https://courses.salesforcementor.com/p/salesforce-development-apex-fudamentals">Salesforce Mentor</a>
             </li>   
          </ul>
@@ -66,5 +82,5 @@
          <p> Press calculate to see your score.</p>
       </template>
       </div>
-  </lightning-card>
+   </lightning-card>
 </template>

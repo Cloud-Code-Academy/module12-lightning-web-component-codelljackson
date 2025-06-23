@@ -3,7 +3,7 @@ const devFundWeight = 0.23;
 const processAutoWeight = 0.30;
 const userIntWeight = 0.25;
 const testDebugWeight = 0.22;
-const passingScore = 65;
+const passingScore = 68;
 
 
 export default class PlatformDevCertCalculator extends LightningElement {
@@ -14,9 +14,18 @@ export default class PlatformDevCertCalculator extends LightningElement {
     testingScore = 50;
 
     certificationScore = 90;
+    numberOfQuestions = 60;
 
     showResources = false;
     showGoodJob = false; 
+    currentHistoryId  = 0; 
+
+         attemptHistory = [
+        {Id: 1, Score:50},
+        {Id: 2, Score:68},
+        {Id: 3, Score:70},
+        {Id: 4, Score:90}
+    ];
 
     calculateScore(){
         let devFundWeightScore = this.devFundamentalScore * devFundWeight;
@@ -31,7 +40,9 @@ export default class PlatformDevCertCalculator extends LightningElement {
             testDebugWeightScore;
 
             this.showResourcesIfFailed();
-        }
+            this.addAttemptHistory(this.certificationScore);
+            }
+
         handleChange(event){
             console.log(event.target.name, event.target.value);
             console.log(event.target.type)
@@ -52,11 +63,31 @@ export default class PlatformDevCertCalculator extends LightningElement {
         showResourcesIfFailed(){
             if (this.certificationScore < passingScore){
                 this.showResources = true;
-                this.showGoodJob = false;
+                
             } else {
                 this.showResources = false;
-                this.showGoodJob = true;
+                
             }
-            
+            this.showGoodJob = !this.showResources; 
             }
+            addAttemptHistory(Score){
+                this.currentHistoryId ++; 
+                
+                const attempt = 
+                {
+                    Id: this.currentHistoryId, Score
+                }
+                this.attemptHistory = [...this.attemptHistory, attempt];
         }
+        deleteAttemptHandler(event){
+            console.log('this is called from parent to handle delete', event.detail);
+            let atteemptId = event.detail;
+            this.attemptHistory = this.attemptHistory.filter(attempt => attempt.Id != atteemptId);
+            console.log('New attempt history' + this.attemptHistory);
+        }
+        connectedCallback(){
+            this.currentHistoryId = this.attemptHistory.length;
+            
+        }
+    }
+    
